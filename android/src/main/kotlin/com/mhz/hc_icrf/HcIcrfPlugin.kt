@@ -115,7 +115,12 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
-        applicationContext.unregisterReceiver(mUsbBroadcast)
+        try {
+            applicationContext.unregisterReceiver(mUsbBroadcast)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     /**
@@ -138,7 +143,7 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                         if (st >= 0) {
                             channel.invokeMethod(
                                 "connectReaderSucceeded",
-                                emptyMap<String, String>()
+                                mapOf("message" to "通知方式")
                             )
 //                            PutMessage("Connect Reader succeeded.")
 //                            btnCard.setEnabled(true)

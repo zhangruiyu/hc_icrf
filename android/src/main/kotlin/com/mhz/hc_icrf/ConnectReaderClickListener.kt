@@ -43,7 +43,7 @@ object ConnectReader {
                 if (st >= 0) {
                     channel.invokeMethod(
                         "connectReaderSucceeded",
-                        emptyMap<String, String>()
+                        mapOf("message" to "调用方式")
                     )
 //                    PutMessage("Connect Reader succeeded.")
 //                    btnCard.setEnabled(true)
