@@ -102,7 +102,7 @@ class _MyAppState extends State<MyApp> {
                 child: Text('选择卡片')),
             ElevatedButton(
                 onPressed: () {
-                  selectCard();
+                  verifyPwd();
                 },
                 child: Text('校验密码')),
             Expanded(

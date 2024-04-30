@@ -78,7 +78,8 @@ class NativeResponse {
 Map<String, _NativeResponseInvoker> _nameAndResponseMapper = {
   "connectReaderSucceeded": (Map? argument) =>
       ConnectReaderSucceededNativeResponse.fromMap(argument),
-  "error": (Map? argument) => ErrorNativeResponse.fromMap(argument),
+  "errorMessage": (Map? argument) => ErrorNativeResponse.fromMap(argument),
+  "successMessage": (Map? argument) => ErrorNativeResponse.fromMap(argument),
 };
 
 typedef NativeResponse _NativeResponseInvoker(Map? argument);

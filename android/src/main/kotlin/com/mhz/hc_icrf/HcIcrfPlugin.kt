@@ -31,7 +31,7 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private lateinit var applicationContext: Context
     lateinit var activity: Activity
     lateinit var card: AndroidUSB
-    lateinit var usbDevice: UsbDevice
+    var usbDevice: UsbDevice? = null
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         this.applicationContext = flutterPluginBinding.applicationContext
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "hc_icrf")
