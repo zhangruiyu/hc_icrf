@@ -88,10 +88,16 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            ElevatedButton(onPressed: () {
-              connectReader();
-            }, child: Text('连接设备')),
-            ElevatedButton(onPressed: () {}, child: Text('请求')),
+            ElevatedButton(
+                onPressed: () {
+                  connectReader();
+                },
+                child: Text('连接设备')),
+            ElevatedButton(
+                onPressed: () {
+                  requestCard();
+                },
+                child: Text('请求')),
             ElevatedButton(
                 onPressed: () {
                   anticollCard();
