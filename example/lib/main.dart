@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    connectReader();
     MethodChannelHcIcrf.onDartMessageListener.listen((event) {
       debugPrint('event: $event');
       insertMessage(event.toString());
@@ -89,6 +88,9 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
+            ElevatedButton(onPressed: () {
+              connectReader();
+            }, child: Text('连接设备')),
             ElevatedButton(onPressed: () {}, child: Text('请求')),
             ElevatedButton(
                 onPressed: () {
