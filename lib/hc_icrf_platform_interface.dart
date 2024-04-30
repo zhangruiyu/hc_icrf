@@ -23,7 +23,7 @@ abstract class HcIcrfPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
+  Future<void> connectReader() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }
