@@ -1,7 +1,6 @@
 package com.mhz.hc_icrf
 
 import android.app.Activity
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -22,7 +21,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 /** HcIcrfPlugin */
 class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     private val TAG: String = HcIcrfPlugin::class.java.getSimpleName()
-    private val Device_USB = "com.android.example.USB"
+    private val snr = ByteArray(7)
 
     /// The MethodChannel that will the communication between Flutter and native Android
     ///
@@ -42,15 +41,64 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                  * 为了确切地获得权限，首先需要创建一个广播接收器。在调用requestPermission()这个方法时从得到的广播中监听这个意图。
                  * 通过调用requestPermission()这个方法为用户跳出一个是否连接该设备的对话框。
                  */
-        val filter = IntentFilter(Device_USB)
+        val filter = IntentFilter(ConnectReader.Device_USB)
         activity.registerReceiver(mUsbBroadcast, filter)
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "connectReader" -> {
-                connectReaderClickListener()
+                val connectReaderClickListener = ConnectReader.connectReaderClickListener(
+                    applicationContext,
+                    channel
+                )
+                if (connectReaderClickListener != null) {
+                    this.card = connectReaderClickListener.first
+                    this.usbDevice = connectReaderClickListener.second
+                }
                 result.success(true)
+            }
+
+            "requestCard" -> {
+                val spRequestMode = call.argument<Int>("spRequestMode")!!
+                RequestCardClickListener.requestCard(
+                    channel,
+                    result,
+                    card,
+                    spRequestMode
+                )
+            }
+
+            "anticollCard" -> {
+                AnticollClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    snr
+                )
+            }
+
+            "selectCard" -> {
+                SelectCardClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    snr
+                )
+            }
+
+            "verifyPwd" -> {
+                val pwd = call.argument<String>("pwd")!!
+                val sector = call.argument<Int>("sector")!!
+                val keyMode = call.argument<Int>("keyMode")!!
+                VerifyPwdClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    pwd,
+                    sector,
+                    keyMode
+                )
             }
 
             "close" -> {
@@ -70,49 +118,6 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         applicationContext.unregisterReceiver(mUsbBroadcast)
     }
 
-
-    fun connectReaderClickListener() {
-        try {
-            val manager =
-                applicationContext.getSystemService(Context.USB_SERVICE) as UsbManager?
-            if (manager == null) {
-                sendError("UsbManager is null.")
-                return
-            }
-            card = AndroidUSB(applicationContext, manager)
-            val usbDevice = card.GetUsbReader()
-            if (usbDevice == null) {
-                sendError("No reader was scanned.");
-                return
-            }
-
-            // 判断是否拥有该设备的连接权限
-            if (!manager.hasPermission(usbDevice)) {
-
-                // 如果没有则请求权限
-                val mPermissionIntent = PendingIntent.getBroadcast(
-                    applicationContext, 0,
-                    Intent(Device_USB), PendingIntent.FLAG_UPDATE_CURRENT
-                )
-                manager.requestPermission(usbDevice, mPermissionIntent)
-            } else {
-                val st = card.OpenReader(usbDevice)
-                if (st >= 0) {
-                    channel.invokeMethod(
-                        "connectReaderSucceeded",
-                        emptyMap<String, String>()
-                    )
-//                    PutMessage("Connect Reader succeeded.")
-//                    btnCard.setEnabled(true)
-                } else {
-                    sendError(card.GetErrMessage(0.toShort(), st))
-                }
-            }
-        } catch (e: Exception) {
-            sendError(e.message)
-        }
-    }
-
     /**
      * Create a broadcast receiver.
      */
@@ -121,7 +126,7 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             Log.w(TAG, "Enter the broadcast receiver.")
             val action = paramAnonymousIntent.action
             // 判断广播类型
-            if (Device_USB == action) {
+            if (ConnectReader.Device_USB == action) {
                 try {
                     // 如果用户同意，则对读写器进行操作
                     if (paramAnonymousIntent.getBooleanExtra(
@@ -138,7 +143,7 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 //                            PutMessage("Connect Reader succeeded.")
 //                            btnCard.setEnabled(true)
                         } else {
-                            sendError(card.GetErrMessage(0.toShort(), st))
+                            sendErrorMessage(channel, card.GetErrMessage(0.toShort(), st))
 //                            PutMessage(card.GetErrMessage(0.toShort(), st))
                         }
                     } else {
@@ -151,9 +156,6 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         }
     }
 
-    fun sendError(message: String?) {
-        channel.invokeMethod("error", mapOf("message" to message))
-    }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         this.activity = binding.activity
@@ -166,5 +168,16 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     override fun onDetachedFromActivity() {
+    }
+
+    companion object {
+
+        fun sendErrorMessage(channel: MethodChannel, message: String?) {
+            channel.invokeMethod("errorMessage", mapOf("message" to message))
+        }
+
+        fun sendSuccessMessage(channel: MethodChannel, message: String?) {
+            channel.invokeMethod("successMessage", mapOf("message" to message))
+        }
     }
 }

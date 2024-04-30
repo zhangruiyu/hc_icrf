@@ -26,4 +26,24 @@ abstract class HcIcrfPlatform extends PlatformInterface {
   Future<void> connectReader() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
+  Future<String> anticollCard() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<int> selectCard() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<int> requestCard(int spRequestMode) {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<int> verifyPwd({
+    required String pwd,
+    required int sector,
+    required int keyMode,
+  }) {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
 }

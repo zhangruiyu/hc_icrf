@@ -29,6 +29,35 @@ class MethodChannelHcIcrf extends HcIcrfPlatform {
   Future<void> connectReader() async {
     await methodChannel.invokeMethod<bool>('connectReader');
   }
+
+  @override
+  Future<String> anticollCard() async {
+    return (await methodChannel.invokeMethod<String>('anticollCard'))!;
+  }
+
+  @override
+  Future<int> selectCard() async {
+    return (await methodChannel.invokeMethod<int>('selectCard'))!;
+  }
+
+  @override
+  Future<int> requestCard(int spRequestMode) async {
+    return (await methodChannel
+        .invokeMethod<int>('requestCard', {'spRequestMode': spRequestMode}))!;
+  }
+
+  @override
+  Future<int> verifyPwd({
+    required String pwd,
+    required int sector,
+    required int keyMode,
+  }) async {
+    return (await methodChannel.invokeMethod<int>('verifyPwd', {
+      'pwd': pwd,
+      'sector': sector,
+      'keyMode': keyMode,
+    }))!;
+  }
 }
 
 class NativeResponse {
