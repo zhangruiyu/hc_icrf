@@ -23,14 +23,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    connectReader();
     MethodChannelHcIcrf.onDartMessageListener.listen((event) {
       debugPrint('event: $event');
       insertMessage(event.toString());
     });
   }
 
-  Future<void> initPlatformState() async {
+  Future<void> connectReader() async {
     await _hcIcrfPlugin.connectReader();
   }
 
