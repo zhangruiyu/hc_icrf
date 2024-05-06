@@ -18,6 +18,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final _hcIcrfPlugin = HcIcrf();
   List<String> message = [];
+  String blockNo = '4';
+  String value = '1000';
 
   @override
   void initState() {
@@ -76,7 +78,7 @@ class _MyAppState extends State<MyApp> {
   ///读数据
   Future<void> readCard() async {
     try {
-      String result = await _hcIcrfPlugin.readCard(blockNo: '');
+      String result = await _hcIcrfPlugin.readCard(blockNo: blockNo);
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
@@ -85,7 +87,8 @@ class _MyAppState extends State<MyApp> {
   ///写数据
   Future<void> writeCard() async {
     try {
-      bool result = await _hcIcrfPlugin.writeCard(blockNo: '', blockData: '');
+      bool result = await _hcIcrfPlugin.writeCard(
+          blockNo: blockNo, blockData: 'FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF');
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
@@ -94,7 +97,8 @@ class _MyAppState extends State<MyApp> {
   ///初始化数据
   Future<void> initValue() async {
     try {
-      bool result = await _hcIcrfPlugin.initValue(blockNo: '', initValue: '');
+      bool result =
+          await _hcIcrfPlugin.initValue(blockNo: blockNo, initValue: value);
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
@@ -103,7 +107,8 @@ class _MyAppState extends State<MyApp> {
   ///减值
   Future<void> decrement() async {
     try {
-      bool result = await _hcIcrfPlugin.decrement(blockNo: '', value: '');
+      bool result =
+          await _hcIcrfPlugin.decrement(blockNo: blockNo, value: value);
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
@@ -112,7 +117,8 @@ class _MyAppState extends State<MyApp> {
   ///加值
   Future<void> increment() async {
     try {
-      bool result = await _hcIcrfPlugin.increment(blockNo: '', value: '');
+      bool result =
+          await _hcIcrfPlugin.increment(blockNo: blockNo, value: value);
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
@@ -121,7 +127,7 @@ class _MyAppState extends State<MyApp> {
   ///读值
   Future<void> readValue() async {
     try {
-      int result = await _hcIcrfPlugin.readValue(blockNo: '');
+      int result = await _hcIcrfPlugin.readValue(blockNo: blockNo);
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
