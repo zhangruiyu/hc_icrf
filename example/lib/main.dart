@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
     try {
       ///选卡成功, 返回secNo
       int result =
-          await _hcIcrfPlugin.verifyPwd(pwd: 'pwd', sector: 1, keyMode: 0);
+          await _hcIcrfPlugin.verifyPwd(pwd: 'FFFFFFFFFFFF', sector: 1, keyMode: 0);
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
