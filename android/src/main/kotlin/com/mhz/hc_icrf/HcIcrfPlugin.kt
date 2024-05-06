@@ -135,6 +135,48 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 )
             }
 
+            "decrement" -> {
+                val blockNo = call.argument<String>("blockNo")!!
+                val value = call.argument<String>("value")!!
+                DecrementClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    blockNo,
+                    value,
+                )
+            }
+
+            "increment" -> {
+                val blockNo = call.argument<String>("blockNo")!!
+                val value = call.argument<String>("value")!!
+                IncrementClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    blockNo,
+                    value,
+                )
+            }
+
+            "readValue" -> {
+                val blockNo = call.argument<String>("blockNo")!!
+                ReadValueClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    blockNo,
+                )
+            }
+
+            "closeCard" -> {
+                CloseCardClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                )
+            }
+
             "close" -> {
                 // Destroy broadcasts.
 

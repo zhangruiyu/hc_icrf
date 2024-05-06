@@ -78,6 +78,7 @@ class MethodChannelHcIcrf extends HcIcrfPlatform {
       'blockData': blockData,
     }))!;
   }
+
   @override
   Future<bool> initValue({
     required String blockNo,
@@ -87,6 +88,42 @@ class MethodChannelHcIcrf extends HcIcrfPlatform {
       'blockNo': blockNo,
       'initValue': initValue,
     }))!;
+  }
+
+  @override
+  Future<bool> decrement({
+    required String blockNo,
+    required String value,
+  }) async {
+    return (await methodChannel.invokeMethod<bool>('decrement', {
+      'blockNo': blockNo,
+      'value': value,
+    }))!;
+  }
+
+  @override
+  Future<bool> increment({
+    required String blockNo,
+    required String value,
+  }) async {
+    return (await methodChannel.invokeMethod<bool>('increment', {
+      'blockNo': blockNo,
+      'value': value,
+    }))!;
+  }
+
+  @override
+  Future<int> readValue({
+    required String blockNo,
+  }) async {
+    return (await methodChannel.invokeMethod<int>('readValue', {
+      'blockNo': blockNo,
+    }))!;
+  }
+
+  @override
+  Future<bool> closeCard() async {
+    return (await methodChannel.invokeMethod<bool>('closeCard'))!;
   }
 }
 
