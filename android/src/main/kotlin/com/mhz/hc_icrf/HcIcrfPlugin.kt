@@ -100,6 +100,15 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     keyMode
                 )
             }
+            "readCard" -> {
+                val blockNo = call.argument<String>("blockNo")!!
+                ReadCardClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    blockNo,
+                )
+            }
 
             "close" -> {
                 // Destroy broadcasts.

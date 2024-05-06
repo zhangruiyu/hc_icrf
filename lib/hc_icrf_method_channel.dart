@@ -58,6 +58,15 @@ class MethodChannelHcIcrf extends HcIcrfPlatform {
       'keyMode': keyMode,
     }))!;
   }
+
+  @override
+  Future<String> readCard({
+    required String blockNo,
+  }) async {
+    return (await methodChannel.invokeMethod<String>('readCard', {
+      'blockNo': blockNo,
+    }))!;
+  }
 }
 
 class NativeResponse {

@@ -30,4 +30,14 @@ class HcIcrf {
     return HcIcrfPlatform.instance
         .verifyPwd(pwd: pwd, sector: sector, keyMode: keyMode);
   }
+
+  /**
+   * 读数据
+   * blockNo:块号
+   */
+  Future<String> readCard({
+    required String blockNo,
+  }) {
+    return HcIcrfPlatform.instance.readCard(blockNo: blockNo);
+  }
 }

@@ -24,19 +24,19 @@ abstract class HcIcrfPlatform extends PlatformInterface {
   }
 
   Future<void> connectReader() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('connectReader() has not been implemented.');
   }
 
   Future<String> anticollCard() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('anticollCard() has not been implemented.');
   }
 
   Future<int> selectCard() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('selectCard() has not been implemented.');
   }
 
   Future<int> requestCard(int spRequestMode) {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('requestCard() has not been implemented.');
   }
 
   Future<int> verifyPwd({
@@ -44,6 +44,12 @@ abstract class HcIcrfPlatform extends PlatformInterface {
     required int sector,
     required int keyMode,
   }) {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('verifyPwd() has not been implemented.');
+  }
+
+  Future<String> readCard({
+    required String blockNo,
+  }) {
+    throw UnimplementedError('readCard() has not been implemented.');
   }
 }
