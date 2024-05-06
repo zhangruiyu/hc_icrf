@@ -16,7 +16,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  sentry_flutter: ^8.0.0
   hc_icrf:
     # When depending on this package from a real application you should use:
     #   hc_icrf: ^x.y.z

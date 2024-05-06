@@ -3,22 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hc_icrf/hc_icrf.dart';
 import 'package:hc_icrf/hc_icrf_method_channel.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future<void> main() async {
-  await SentryFlutter.init(
-    (options) {
-      options.dsn =
-          'https://044ddff78dadd04245bfb28e7bdb7875@o1373303.ingest.us.sentry.io/4507174877855744';
-      // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-      // We recommend adjusting this value in production.
-      options.tracesSampleRate = 1.0;
-      // The sampling rate for profiling is relative to tracesSampleRate
-      // Setting to 1.0 will profile 100% of sampled transactions:
-      options.profilesSampleRate = 1.0;
-    },
-    appRunner: () => runApp(MyApp()),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
