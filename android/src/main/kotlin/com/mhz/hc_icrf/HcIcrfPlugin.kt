@@ -177,10 +177,13 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 )
             }
 
-            "close" -> {
-                // Destroy broadcasts.
-
-                result.success(true)
+            "rfScard" -> {
+                RfReadListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    snr
+                )
             }
 
             else -> {

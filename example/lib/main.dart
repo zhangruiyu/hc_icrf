@@ -68,8 +68,8 @@ class _MyAppState extends State<MyApp> {
   Future<void> verifyPwd() async {
     try {
       ///选卡成功, 返回secNo
-      int result =
-          await _hcIcrfPlugin.verifyPwd(pwd: 'FFFFFFFFFFFF', sector: 1, keyMode: 0);
+      int result = await _hcIcrfPlugin.verifyPwd(
+          pwd: 'FFFFFFFFFFFF', sector: 1, keyMode: 0);
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
@@ -137,6 +137,15 @@ class _MyAppState extends State<MyApp> {
   Future<void> closeCard() async {
     try {
       bool result = await _hcIcrfPlugin.closeCard();
+    } catch (e, s) {
+      debugPrint('error: $e, stack: $s');
+    }
+  }
+
+  ///rfScard
+  Future<void> rfScard() async {
+    try {
+      String result = await _hcIcrfPlugin.rfScard();
     } catch (e, s) {
       debugPrint('error: $e, stack: $s');
     }
@@ -216,6 +225,11 @@ class _MyAppState extends State<MyApp> {
                   closeCard();
                 },
                 child: Text('关闭卡片')),
+            ElevatedButton(
+                onPressed: () {
+                  rfScard();
+                },
+                child: Text('rfScard')),
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.all(20),

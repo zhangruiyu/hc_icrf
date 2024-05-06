@@ -1,7 +1,6 @@
 import 'hc_icrf_platform_interface.dart';
 
 class HcIcrf {
-
   /**
    * 连接读卡器
    */
@@ -121,5 +120,12 @@ class HcIcrf {
    */
   Future<bool> closeCard() {
     return HcIcrfPlatform.instance.closeCard();
+  }
+
+  /**
+   * rfScard
+   */
+  Future<String> rfScard() {
+    return HcIcrfPlatform.instance.rfScard();
   }
 }

@@ -125,6 +125,10 @@ class MethodChannelHcIcrf extends HcIcrfPlatform {
   Future<bool> closeCard() async {
     return (await methodChannel.invokeMethod<bool>('closeCard'))!;
   }
+  @override
+  Future<String> rfScard() async {
+    return (await methodChannel.invokeMethod<String>('rfScard'))!;
+  }
 }
 
 class NativeResponse {

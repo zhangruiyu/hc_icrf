@@ -90,4 +90,8 @@ abstract class HcIcrfPlatform extends PlatformInterface {
   Future<bool> closeCard() {
     throw UnimplementedError('closeCard() has not been implemented.');
   }
+
+  Future<String> rfScard() {
+    throw UnimplementedError('rfScard() has not been implemented.');
+  }
 }
