@@ -7,8 +7,9 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 Future<void> main() async {
   await SentryFlutter.init(
-        (options) {
-      options.dsn = 'https://044ddff78dadd04245bfb28e7bdb7875@o1373303.ingest.us.sentry.io/4507174877855744';
+    (options) {
+      options.dsn =
+          'https://044ddff78dadd04245bfb28e7bdb7875@o1373303.ingest.us.sentry.io/4507174877855744';
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 1.0;
@@ -19,7 +20,6 @@ Future<void> main() async {
     appRunner: () => runApp(MyApp()),
   );
 }
-
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -86,6 +86,69 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  ///读数据
+  Future<void> readCard() async {
+    try {
+      String result = await _hcIcrfPlugin.readCard(blockNo: '');
+    } catch (e, s) {
+      debugPrint('error: $e, stack: $s');
+    }
+  }
+
+  ///写数据
+  Future<void> writeCard() async {
+    try {
+      bool result = await _hcIcrfPlugin.writeCard(blockNo: '', blockData: '');
+    } catch (e, s) {
+      debugPrint('error: $e, stack: $s');
+    }
+  }
+
+  ///初始化数据
+  Future<void> initValue() async {
+    try {
+      bool result = await _hcIcrfPlugin.initValue(blockNo: '', initValue: '');
+    } catch (e, s) {
+      debugPrint('error: $e, stack: $s');
+    }
+  }
+
+  ///减值
+  Future<void> decrement() async {
+    try {
+      bool result = await _hcIcrfPlugin.decrement(blockNo: '', value: '');
+    } catch (e, s) {
+      debugPrint('error: $e, stack: $s');
+    }
+  }
+
+  ///加值
+  Future<void> increment() async {
+    try {
+      bool result = await _hcIcrfPlugin.increment(blockNo: '', value: '');
+    } catch (e, s) {
+      debugPrint('error: $e, stack: $s');
+    }
+  }
+
+  ///读值
+  Future<void> readValue() async {
+    try {
+      int result = await _hcIcrfPlugin.readValue(blockNo: '');
+    } catch (e, s) {
+      debugPrint('error: $e, stack: $s');
+    }
+  }
+
+  ///关闭卡片
+  Future<void> closeCard() async {
+    try {
+      bool result = await _hcIcrfPlugin.closeCard();
+    } catch (e, s) {
+      debugPrint('error: $e, stack: $s');
+    }
+  }
+
   void insertMessage(String newMessage) {
     message.insert(0, newMessage);
     setState(() {});
@@ -125,6 +188,41 @@ class _MyAppState extends State<MyApp> {
                   verifyPwd();
                 },
                 child: Text('校验密码')),
+            ElevatedButton(
+                onPressed: () {
+                  readCard();
+                },
+                child: Text('读数据')),
+            ElevatedButton(
+                onPressed: () {
+                  writeCard();
+                },
+                child: Text('写数据')),
+            ElevatedButton(
+                onPressed: () {
+                  writeCard();
+                },
+                child: Text('初始化值')),
+            ElevatedButton(
+                onPressed: () {
+                  decrement();
+                },
+                child: Text('减值')),
+            ElevatedButton(
+                onPressed: () {
+                  increment();
+                },
+                child: Text('加值')),
+            ElevatedButton(
+                onPressed: () {
+                  readValue();
+                },
+                child: Text('读值')),
+            ElevatedButton(
+                onPressed: () {
+                  closeCard();
+                },
+                child: Text('关闭卡片')),
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.all(20),
