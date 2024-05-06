@@ -42,15 +42,27 @@ class HcIcrf {
   }
 
   /**
-   * 读数据
+   * 写数据
    * blockNo:块号
    * blockData:写入的数据
    */
-  Future<String> writeCard({
+  Future<bool> writeCard({
     required String blockNo,
     required String blockData,
   }) {
     return HcIcrfPlatform.instance
         .writeCard(blockNo: blockNo, blockData: blockData);
+  }
+  /**
+   * 初始化值
+   * blockNo:块号
+   * initValue:初始化的数据
+   */
+  Future<bool> initValue({
+    required String blockNo,
+    required String initValue,
+  }) {
+    return HcIcrfPlatform.instance
+        .initValue(blockNo: blockNo, initValue: initValue);
   }
 }

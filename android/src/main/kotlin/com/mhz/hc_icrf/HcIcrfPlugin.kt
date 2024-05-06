@@ -123,6 +123,18 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 )
             }
 
+            "initValue" -> {
+                val blockNo = call.argument<String>("blockNo")!!
+                val initValue = call.argument<String>("initValue")!!
+                InitValueClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    blockNo,
+                    initValue,
+                )
+            }
+
             "close" -> {
                 // Destroy broadcasts.
 

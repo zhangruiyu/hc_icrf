@@ -69,13 +69,23 @@ class MethodChannelHcIcrf extends HcIcrfPlatform {
   }
 
   @override
-  Future<String> writeCard({
+  Future<bool> writeCard({
     required String blockNo,
     required String blockData,
   }) async {
-    return (await methodChannel.invokeMethod<String>('writeCard', {
+    return (await methodChannel.invokeMethod<bool>('writeCard', {
       'blockNo': blockNo,
       'blockData': blockData,
+    }))!;
+  }
+  @override
+  Future<bool> initValue({
+    required String blockNo,
+    required String initValue,
+  }) async {
+    return (await methodChannel.invokeMethod<bool>('initValue', {
+      'blockNo': blockNo,
+      'initValue': initValue,
     }))!;
   }
 }

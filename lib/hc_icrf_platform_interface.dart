@@ -53,10 +53,16 @@ abstract class HcIcrfPlatform extends PlatformInterface {
     throw UnimplementedError('readCard() has not been implemented.');
   }
 
-  Future<String> writeCard({
+  Future<bool> writeCard({
     required String blockNo,
     required String blockData,
   }) {
     throw UnimplementedError('writeCard() has not been implemented.');
+  }
+  Future<bool> initValue({
+    required String blockNo,
+    required String initValue,
+  }) {
+    throw UnimplementedError('initValue() has not been implemented.');
   }
 }
