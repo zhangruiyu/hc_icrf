@@ -100,6 +100,7 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     keyMode
                 )
             }
+
             "readCard" -> {
                 val blockNo = call.argument<String>("blockNo")!!
                 ReadCardClickListener.invoke(
@@ -107,6 +108,18 @@ class HcIcrfPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                     result,
                     card,
                     blockNo,
+                )
+            }
+
+            "writeCard" -> {
+                val blockNo = call.argument<String>("blockNo")!!
+                val blockData = call.argument<String>("blockData")!!
+                WriteCardClickListener.invoke(
+                    channel,
+                    result,
+                    card,
+                    blockNo,
+                    blockData,
                 )
             }
 

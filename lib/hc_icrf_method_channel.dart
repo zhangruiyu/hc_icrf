@@ -67,6 +67,17 @@ class MethodChannelHcIcrf extends HcIcrfPlatform {
       'blockNo': blockNo,
     }))!;
   }
+
+  @override
+  Future<String> writeCard({
+    required String blockNo,
+    required String blockData,
+  }) async {
+    return (await methodChannel.invokeMethod<String>('writeCard', {
+      'blockNo': blockNo,
+      'blockData': blockData,
+    }))!;
+  }
 }
 
 class NativeResponse {

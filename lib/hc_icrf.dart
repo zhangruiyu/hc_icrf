@@ -40,4 +40,17 @@ class HcIcrf {
   }) {
     return HcIcrfPlatform.instance.readCard(blockNo: blockNo);
   }
+
+  /**
+   * 读数据
+   * blockNo:块号
+   * blockData:写入的数据
+   */
+  Future<String> writeCard({
+    required String blockNo,
+    required String blockData,
+  }) {
+    return HcIcrfPlatform.instance
+        .writeCard(blockNo: blockNo, blockData: blockData);
+  }
 }
